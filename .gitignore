@@ -1,0 +1,16 @@
+venv/
+ocr_venv/
+dataset/
+dataset_raw/
+runs/
+weights/
+test_videos/
+plate_crops_enhanced_v2/
+__pycache__/
+*.pt
+*.zip
+*.jpg
+*.png
+*.mp4
+*.avi
+*.mov
