@@ -15,10 +15,15 @@ from rapidocr_onnxruntime import RapidOCR
 
 MODEL_PATH = r"runs\detect\runs\plate_detector_v1\weights\best.pt"
 
-VIDEO_PATHS = {
-    "CAM_01": r"test_videos\cctv_camera_1.mp4",
-    "CAM_02": r"test_videos\cctv_camera_2.mp4",
-}
+VIDEO_DIR = r"test_videos"
+
+VIDEO_EXTENSIONS = (
+    ".mp4",
+    ".avi",
+    ".mov",
+    ".mkv",
+    ".wmv"
+)
 
 OUTPUT_DIR = r"runs\final_anpr"
 
@@ -101,6 +106,55 @@ STATE_CODES = {
     "UP",
     "WB"
 }
+
+
+# ============================================================
+# FIND ALL VIDEOS
+# ============================================================
+
+def find_videos():
+
+    if not os.path.isdir(VIDEO_DIR):
+
+        print()
+        print(
+            "ERROR: Video directory not found:"
+        )
+
+        print(
+            VIDEO_DIR
+        )
+
+        return []
+
+    videos = []
+
+    for filename in os.listdir(VIDEO_DIR):
+
+        file_path = os.path.join(
+            VIDEO_DIR,
+            filename
+        )
+
+        if not os.path.isfile(file_path):
+            continue
+
+        extension = os.path.splitext(
+            filename
+        )[1].lower()
+
+        if extension in VIDEO_EXTENSIONS:
+
+            videos.append(
+                file_path
+            )
+
+    videos.sort(
+        key=lambda path:
+            os.path.basename(path).lower()
+    )
+
+    return videos
 
 
 # ============================================================
@@ -319,7 +373,10 @@ def run_ocr(ocr, crop):
 # CREATE EVENT TIMESTAMP
 # ============================================================
 
-def create_timestamp(frame_number, fps):
+def create_timestamp(
+    frame_number,
+    fps
+):
 
     seconds = frame_number / fps
 
@@ -355,6 +412,13 @@ def process_camera(
     print(camera_id)
     print("=" * 70)
 
+    print(
+        "Video:",
+        os.path.basename(
+            video_path
+        )
+    )
+
     cap = cv2.VideoCapture(
         video_path
     )
@@ -365,7 +429,9 @@ def process_camera(
             "ERROR: Could not open video:"
         )
 
-        print(video_path)
+        print(
+            video_path
+        )
 
         return []
 
@@ -777,6 +843,49 @@ def main():
     print("=" * 70)
 
     # ========================================================
+    # FIND ALL VIDEOS
+    # ========================================================
+
+    video_paths = find_videos()
+
+    if not video_paths:
+
+        print()
+        print(
+            "No supported videos found in:"
+        )
+
+        print(
+            VIDEO_DIR
+        )
+
+        print()
+        print(
+            "Supported formats:",
+            ", ".join(
+                VIDEO_EXTENSIONS
+            )
+        )
+
+        return
+
+    print()
+    print(
+        "Videos found:",
+        len(video_paths)
+    )
+
+    for index, video_path in enumerate(
+        video_paths,
+        start=1
+    ):
+
+        print(
+            f"  CAM_{index:02d}: "
+            f"{os.path.basename(video_path)}"
+        )
+
+    # ========================================================
     # LOAD MODELS
     # ========================================================
 
@@ -796,15 +905,19 @@ def main():
     ocr = RapidOCR()
 
     # ========================================================
-    # PROCESS CAMERAS
+    # PROCESS ALL CAMERAS
     # ========================================================
 
     all_camera_results = []
 
-    for (
-        camera_id,
-        video_path
-    ) in VIDEO_PATHS.items():
+    for index, video_path in enumerate(
+        video_paths,
+        start=1
+    ):
+
+        camera_id = (
+            f"CAM_{index:02d}"
+        )
 
         results = process_camera(
             camera_id,
@@ -906,6 +1019,11 @@ def main():
         )
 
     print()
+    print(
+        "Videos processed:",
+        len(video_paths)
+    )
+
     print(
         "Recognized plate events saved:",
         len(events)
