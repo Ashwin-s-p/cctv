@@ -13,7 +13,7 @@ from rapidocr_onnxruntime import RapidOCR
 # CONFIGURATION
 # ============================================================
 
-MODEL_PATH = r"runs\detect\runs\plate_detector_v1\weights\best.pt"
+MODEL_PATH = r"best.pt"
 
 VIDEO_DIR = r"test_videos"
 
