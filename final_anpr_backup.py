@@ -7,7 +7,6 @@ from datetime import datetime, timedelta, timezone
 
 from ultralytics import YOLO
 from rapidocr_onnxruntime import RapidOCR
-from kafka import KafkaProducer
 
 
 # ============================================================
@@ -32,10 +31,6 @@ JSON_PATH = os.path.join(
     OUTPUT_DIR,
     "final_results.json"
 )
-
-# Kafka configuration
-KAFKA_SERVER = "localhost:9092"
-KAFKA_TOPIC = "vehicle-events"
 
 CONF_THRESHOLD = 0.20
 IMG_SIZE = 1280
@@ -844,70 +839,6 @@ def process_camera(
 
 
 # ============================================================
-# PUBLISH EVENTS TO KAFKA
-# ============================================================
-
-def publish_to_kafka(events):
-
-    if not events:
-
-        print()
-        print(
-            "No recognized events to publish to Kafka."
-        )
-
-        return
-
-    print()
-    print("=" * 70)
-    print("KAFKA PUBLISHING")
-    print("=" * 70)
-
-    print(
-        "Kafka server:",
-        KAFKA_SERVER
-    )
-
-    print(
-        "Kafka topic:",
-        KAFKA_TOPIC
-    )
-
-    producer = KafkaProducer(
-        bootstrap_servers=KAFKA_SERVER,
-        value_serializer=lambda value:
-            json.dumps(value).encode("utf-8")
-    )
-
-    try:
-
-        for event in events:
-
-            producer.send(
-                KAFKA_TOPIC,
-                event
-            )
-
-            print(
-                f"Published: "
-                f"{event['event_id']} | "
-                f"{event['plate_number']}"
-            )
-
-        producer.flush()
-
-        print()
-        print(
-            f"Successfully published "
-            f"{len(events)} event(s) to Kafka."
-        )
-
-    finally:
-
-        producer.close()
-
-
-# ============================================================
 # MAIN
 # ============================================================
 
@@ -1137,14 +1068,6 @@ def main():
     )
 
     print("=" * 70)
-
-    # ========================================================
-    # KAFKA
-    # ========================================================
-
-    publish_to_kafka(
-        events
-    )
 
 
 # ============================================================
