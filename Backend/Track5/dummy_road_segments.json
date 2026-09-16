@@ -1,0 +1,5 @@
+[
+  {"road_segment_id": "ROAD_A", "road_name": "JM Road", "area": "Area A", "latitude": 18.5205, "longitude": 73.8568},
+  {"road_segment_id": "ROAD_B", "road_name": "FC Road", "area": "Area B", "latitude": 18.526, "longitude": 73.861},
+  {"road_segment_id": "ROAD_C", "road_name": "University Road", "area": "Area C", "latitude": 18.531, "longitude": 73.865}
+]

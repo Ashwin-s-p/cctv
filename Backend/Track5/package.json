@@ -1,0 +1,19 @@
+{
+  "name": "track5-analytics",
+  "version": "1.0.0",
+  "description": "Track 5 trajectory and traffic analytics",
+  "main": "demo.js",
+  "type": "module",
+  "scripts": {
+    "start": "node demo.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "trajectory",
+    "analytics",
+    "road-segments",
+    "vehicle-tracking"
+  ],
+  "author": "",
+  "license": "ISC"
+}

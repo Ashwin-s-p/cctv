@@ -1,0 +1,42 @@
+[
+  {
+    "vehicle_id": "track_127",
+    "plate_number": "MH12AB1234",
+    "camera_id": "CAM_01",
+    "latitude": 18.5204,
+    "longitude": 73.8567,
+    "timestamp": "2026-09-09T10:00:00Z"
+  },
+  {
+    "vehicle_id": "track_127",
+    "plate_number": "MH12AB1234",
+    "camera_id": "CAM_02",
+    "latitude": 18.525,
+    "longitude": 73.8601,
+    "timestamp": "2026-09-09T10:02:00Z"
+  },
+  {
+    "vehicle_id": "track_127",
+    "plate_number": "MH12AB1234",
+    "camera_id": "CAM_05",
+    "latitude": 18.531,
+    "longitude": 73.865,
+    "timestamp": "2026-09-09T10:05:00Z"
+  },
+  {
+    "vehicle_id": "track_204",
+    "plate_number": "MH14CD5678",
+    "camera_id": "CAM_01",
+    "latitude": 18.5205,
+    "longitude": 73.8568,
+    "timestamp": "2026-09-09T10:01:00Z"
+  },
+  {
+    "vehicle_id": "track_204",
+    "plate_number": "MH14CD5678",
+    "camera_id": "CAM_03",
+    "latitude": 18.527,
+    "longitude": 73.862,
+    "timestamp": "2026-09-09T10:04:00Z"
+  }
+]

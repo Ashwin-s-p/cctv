@@ -1,0 +1,16 @@
+[
+  {
+    "road_segment_id": "TEST_ROAD_CAM_01",
+    "road_name": "Camera 01 Test Segment",
+    "area": "CAM_01 Area",
+    "latitude": 18.555137,
+    "longitude": 73.961896
+  },
+  {
+    "road_segment_id": "TEST_ROAD_CAM_02",
+    "road_name": "Camera 02 Test Segment",
+    "area": "CAM_02 Area",
+    "latitude": 18.554309,
+    "longitude": 73.960372
+  }
+]
